@@ -52,6 +52,9 @@ import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "co
 // Images
 import centralLogo from "assets/images/central_logo.jpg";
 
+//Route
+import Profile from "layouts/profile";
+
 export default function App() {
   const [controller, dispatch] = useMaterialUIController();
   const {
@@ -190,6 +193,7 @@ export default function App() {
       {/* {layout === "vr" && <Configurator />} */}
       <Routes>
         {getRoutes(routes)}
+        <Route path="/profile" element={<Profile />} />
         <Route path="*" element={<Navigate to="/dashboard" />} />
       </Routes>
     </ThemeProvider>

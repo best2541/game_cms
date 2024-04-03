@@ -39,7 +39,6 @@ import data from "layouts/dashboard/components/Projects/data";
 import logoAtlassian from "assets/images/small-logos/logo-atlassian.svg";
 
 function Projects({ datas }) {
-  const { columns, rows } = data();
   const [menu, setMenu] = useState(null);
 
   const openMenu = ({ currentTarget }) => setMenu(currentTarget);
@@ -123,7 +122,7 @@ function Projects({ datas }) {
         <DataTable
           table={a}
           showTotalEntries={false}
-          isSorted={false}
+          isSorted={true}
           noEndBorder
           entriesPerPage={false}
         />

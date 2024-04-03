@@ -65,7 +65,7 @@ export default function data() {
     rows: [
       {
         project: (
-          <MDTypography component="a" href="#" variant="button" color="text" fontWeight="medium">
+          <MDTypography component="a" href="/profile" variant="button" color="text" fontWeight="medium">
             Pawit Sangserm
           </MDTypography>
         ),

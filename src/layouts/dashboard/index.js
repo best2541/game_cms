@@ -58,7 +58,7 @@ function Dashboard() {
                 color="primary"
                 icon="person_add"
                 title="Today played"
-                count={datas?.total_view}
+                count={datas?.total_view || 0}
                 percentage={{
                   color: "success",
                   amount: "+3%",
