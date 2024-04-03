@@ -20,6 +20,10 @@ import Card from "@mui/material/Card";
 import Icon from "@mui/material/Icon";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
+// @mui material components
+import Tooltip from "@mui/material/Tooltip";
+import MDAvatar from "components/MDAvatar";
+import MDProgress from "components/MDProgress";
 
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
@@ -31,12 +35,53 @@ import DataTable from "examples/Tables/DataTable";
 // Data
 import data from "layouts/dashboard/components/Projects/data";
 
-function Projects() {
+//img
+import logoAtlassian from "assets/images/small-logos/logo-atlassian.svg";
+
+function Projects({ datas }) {
   const { columns, rows } = data();
   const [menu, setMenu] = useState(null);
 
   const openMenu = ({ currentTarget }) => setMenu(currentTarget);
   const closeMenu = () => setMenu(null);
+
+  const Company = ({ image, name }) => (
+    <MDBox display="flex" alignItems="center" lineHeight={1}>
+      <MDAvatar src={image} name={name} size="sm" />
+      <MDTypography variant="button" fontWeight="medium" ml={1} lineHeight={1}>
+        {name}
+      </MDTypography>
+    </MDBox>
+  )
+  const a = {
+    columns: [
+      { Header: "Game", accessor: "companies", width: "35%", align: "left" },
+      { Header: "Today Played", accessor: "members", align: "center" },
+      { Header: "Average Score", accessor: "budget", align: "center" },
+      { Header: "Average Time", accessor: "completion", align: "center" },
+    ],
+
+    rows: [
+      {
+        companies: <Company image={logoAtlassian} name="Goal keeper" />,
+        members: (
+          <MDTypography variant="caption" color="text" fontWeight="medium">
+            {datas?.total_view}
+          </MDTypography>
+        ),
+        budget: (
+          <MDTypography variant="caption" color="text" fontWeight="medium">
+            {Math.round((datas?.total_score || 0) / (datas?.total_view || 0))}
+          </MDTypography>
+        ),
+        completion: (
+          <MDTypography variant="caption" color="text" fontWeight="medium">
+            {`${Math.round(((datas?.total_time || 0) / (datas?.total_quatity || 0)) / 100)} m ${(Math.round((datas?.total_time || 0) / (datas?.total_quatity || 0)) % 100)} s`}
+          </MDTypography>
+        ),
+      },
+    ]
+  }
 
   const renderMenu = (
     <Menu
@@ -76,7 +121,7 @@ function Projects() {
       </MDBox>
       <MDBox>
         <DataTable
-          table={{ columns, rows }}
+          table={a}
           showTotalEntries={false}
           isSorted={false}
           noEndBorder

@@ -12,7 +12,7 @@ Coded by www.creative-tim.com
 
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
-
+import axios from "axios";
 // @mui material components
 import Grid from "@mui/material/Grid";
 
@@ -34,10 +34,19 @@ import reportsLineChartData from "layouts/dashboard/data/reportsLineChartData";
 // Dashboard components
 import Projects from "layouts/dashboard/components/Projects";
 import OrdersOverview from "layouts/dashboard/components/OrdersOverview";
+import { useEffect, useState } from "react";
 
 function Dashboard() {
   const { sales, tasks } = reportsLineChartData;
+  const [datas, setDatas] = useState({})
 
+  useEffect(() => {
+    axios.get(`${process.env.REACT_APP_API}/Dashboard/index`).then(result => {
+      if (result.data.length > 0) {
+        setDatas(result.data[0])
+      }
+    })
+  }, [])
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -49,7 +58,7 @@ function Dashboard() {
                 color="primary"
                 icon="person_add"
                 title="Today played"
-                count="1,232"
+                count={datas?.total_view}
                 percentage={{
                   color: "success",
                   amount: "+3%",
@@ -63,7 +72,7 @@ function Dashboard() {
               <ComplexStatisticsCard
                 icon="leaderboard"
                 title="Average Score"
-                count="2,300"
+                count={Math.round((datas?.total_score || 0) / (datas?.total_view || 0))}
                 percentage={{
                   color: "success",
                   amount: "",
@@ -78,7 +87,7 @@ function Dashboard() {
                 color="success"
                 icon="access_time"
                 title="Average Time"
-                count="2 m"
+                count={`${Math.round(((datas?.total_time || 0) / (datas?.total_quatity || 0)) / 100)} m ${(Math.round((datas?.total_time || 0) / (datas?.total_quatity || 0)) % 100)} s`}
                 percentage={{
                   color: "success",
                   amount: "",
@@ -121,7 +130,7 @@ function Dashboard() {
         <MDBox>
           <Grid container spacing={3}>
             <Grid item xs={12} md={12} lg={12}>
-              <Projects />
+              <Projects datas={datas}/>
             </Grid>
           </Grid>
         </MDBox>
