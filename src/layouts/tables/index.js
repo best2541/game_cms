@@ -16,6 +16,7 @@ import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 // @mui material components
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
+import Icon from "@mui/material/Icon";
 
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
@@ -29,11 +30,145 @@ import DataTable from "examples/Tables/DataTable";
 
 // Data
 import projectsTableData from "layouts/tables/data/projectsTableData";
-import MDPagination from "components/MDPagination";
+import { useEffect, useState } from "react";
+import axios from "axios";
+
+const temp = {
+  columns: [
+    { Header: "Name", accessor: "project", width: "35%", align: "left" },
+    { Header: "Phone", accessor: "budget", align: "left" },
+    { Header: "Score", accessor: "status", align: "center" },
+    { Header: "date", accessor: "date", align: "center" },
+    { Header: "action", accessor: "action", align: "center" },
+  ],
+
+  rows: [
+    {
+      project: (
+        <MDTypography component="a" href="/profile" variant="button" color="text" fontWeight="medium">
+          Pawit Sangserm
+        </MDTypography>
+      ),
+      budget: (
+        <MDTypography component="a" href="#" variant="button" color="text" fontWeight="medium">
+          0445484942
+        </MDTypography>
+      ),
+      status: (
+        <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
+          7
+        </MDTypography>
+      ),
+      date: (
+        <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
+          1/1/2022
+        </MDTypography>
+      ),
+      action: (
+        <MDTypography component="a" href="#" color="text">
+          <Icon>more_vert</Icon>
+        </MDTypography>
+      ),
+    },
+    {
+      project: (
+        <MDTypography component="a" href="#" variant="button" color="text" fontWeight="medium">
+          Mint
+        </MDTypography>
+      ),
+      budget: (
+        <MDTypography component="a" href="#" variant="button" color="text" fontWeight="medium">
+          0642277436
+        </MDTypography>
+      ),
+      status: (
+        <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
+          11
+        </MDTypography>
+      ),
+      date: (
+        <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
+          2/1/2022
+        </MDTypography>
+      ),
+      action: (
+        <MDTypography component="a" href="#" color="text">
+          <Icon>more_vert</Icon>
+        </MDTypography>
+      ),
+    },
+    {
+      project: (
+        <MDTypography component="a" href="#" variant="button" color="text" fontWeight="medium">
+          Fah
+        </MDTypography>
+      ),
+      budget: (
+        <MDTypography component="a" href="#" variant="button" color="text" fontWeight="medium">
+          0605054055
+        </MDTypography>
+      ),
+      status: (
+        <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
+          24
+        </MDTypography>
+      ),
+      date: (
+        <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
+          2/2/2022
+        </MDTypography>
+      ),
+      action: (
+        <MDTypography component="a" href="#" color="text">
+          <Icon>more_vert</Icon>
+        </MDTypography>
+      ),
+    },
+  ],
+}
 
 function Tables() {
-  const { columns: pColumns, rows: pRows } = projectsTableData();
+  const [datas, setDatas] = useState({})
 
+  useEffect(() => {
+    axios.get(`${process.env.REACT_APP_API}/Dashboard/users`)
+      .then(result => {
+        console.log(result)
+        if (result.data?.length > 0) {
+          setDatas(result.data?.map(data => {
+            return (
+              {
+                project: (
+                  <MDTypography component="a" href="/profile" variant="button" color="text" fontWeight="medium">
+                    Pawit Sangserm
+                  </MDTypography>
+                ),
+                budget: (
+                  <MDTypography component="a" href="#" variant="button" color="text" fontWeight="medium">
+                    0445484942
+                  </MDTypography>
+                ),
+                status: (
+                  <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
+                    7
+                  </MDTypography>
+                ),
+                date: (
+                  <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
+                    1/1/2022
+                  </MDTypography>
+                ),
+                action: (
+                  <MDTypography component="a" href="#" color="text">
+                    <Icon>more_vert</Icon>
+                  </MDTypography>
+                ),
+              }
+            )
+          }))
+        }
+      })
+  }, [])
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -57,7 +192,7 @@ function Tables() {
               </MDBox>
               <MDBox pt={3}>
                 <DataTable
-                  table={{ columns: pColumns, rows: pRows }}
+                  table={temp}
                   isSorted={true}
                   entriesPerPage={false}
                   showTotalEntries={false}
