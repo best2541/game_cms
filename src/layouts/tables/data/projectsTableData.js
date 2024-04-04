@@ -84,7 +84,6 @@ export default function data() {
             1/1/2022
           </MDTypography>
         ),
-        completion: <Progress color="info" value={60} />,
         action: (
           <MDTypography component="a" href="#" color="text">
             <Icon>more_vert</Icon>
@@ -139,7 +138,6 @@ export default function data() {
             2/2/2022
           </MDTypography>
         ),
-        completion: <Progress color="error" value={30} />,
         action: (
           <MDTypography component="a" href="#" color="text">
             <Icon>more_vert</Icon>
