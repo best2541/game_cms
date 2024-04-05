@@ -128,34 +128,34 @@ const temp = {
 }
 
 function Tables() {
-  const [datas, setDatas] = useState({})
+  const [datas, setDatas] = useState([])
 
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_API}/Dashboard/users`)
       .then(result => {
-        console.log(result)
+        console.log(result.data)
         if (result.data?.length > 0) {
           setDatas(result.data?.map(data => {
             return (
               {
                 project: (
                   <MDTypography component="a" href="/profile" variant="button" color="text" fontWeight="medium">
-                    Pawit Sangserm
+                    {data.name}
                   </MDTypography>
                 ),
                 budget: (
                   <MDTypography component="a" href="#" variant="button" color="text" fontWeight="medium">
-                    0445484942
+                    {data.phone}
                   </MDTypography>
                 ),
                 status: (
                   <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-                    7
+                    {data.score}
                   </MDTypography>
                 ),
                 date: (
                   <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-                    1/1/2022
+                    {new Date(data.update_date).toLocaleDateString('th')}
                   </MDTypography>
                 ),
                 action: (
@@ -192,7 +192,7 @@ function Tables() {
               </MDBox>
               <MDBox pt={3}>
                 <DataTable
-                  table={temp}
+                  table={{ columns: temp.columns, rows: datas }}
                   isSorted={true}
                   entriesPerPage={false}
                   showTotalEntries={false}
