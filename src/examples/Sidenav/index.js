@@ -180,7 +180,10 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
       />
       <List>{renderRoutes}</List>
       <MDBox p={2} mt="auto">
-        <MDButton
+        <MDTypography component="h6" variant="button" fontWeight="light" color={textColor} align="center">
+        Powered by Britz
+        </MDTypography>
+        {/* <MDButton
           component="a"
           href="https://www.creative-tim.com/product/material-dashboard-pro-react"
           target="_blank"
@@ -190,7 +193,7 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
           fullWidth
         >
           upgrade to pro
-        </MDButton>
+        </MDButton> */}
       </MDBox>
     </SidenavRoot>
   );

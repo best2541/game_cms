@@ -187,7 +187,7 @@ function Tables() {
                 coloredShadow="info"
               >
                 <MDTypography variant="h6" color="white">
-                  Users
+                  Reports
                 </MDTypography>
               </MDBox>
               <MDBox pt={3}>

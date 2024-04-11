@@ -46,10 +46,12 @@ function Footer({ company, links }) {
     <MDBox
       width="100%"
       display="flex"
-      flexDirection={{ xs: "column", lg: "row" }}
+      // flexDirection={{ xs: "column", lg: "row" }}
+      flexDirection={{ xs: "column", lg: "column" }}
       justifyContent="space-between"
       alignItems="center"
       px={1.5}
+      listStyle={{ backgroundColor: 'red' }}
     >
       <MDBox
         display="flex"
@@ -60,10 +62,9 @@ function Footer({ company, links }) {
         fontSize={size.sm}
         px={1.5}
       >
-        &copy; {new Date().getFullYear()},
         <Link href={href} target="_blank">
           <MDTypography variant="button" fontWeight="medium">
-            &nbsp;{name}&nbsp;
+            {/* Powered by Britz */}
           </MDTypography>
         </Link>
       </MDBox>
@@ -84,7 +85,7 @@ function Footer({ company, links }) {
           },
         })}
       >
-        {renderLinks()}
+        {/* {renderLinks()} */}
       </MDBox>
     </MDBox>
   );
